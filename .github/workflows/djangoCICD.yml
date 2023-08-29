@@ -50,19 +50,15 @@ jobs:
 
   build_and_pub:
     needs: [django-tests]
-    runs_on: [ubuntu-20.04]
+    runs-on: [ubuntu-latest]
     env:
-        NAME: ${{ secrets.DOCKER_NAME }}
-        LOGIN: ${{ secrets.DOCKER_LOGIN }}
-      
-      steps:
-        -name: Авторизация в docker
-        run: echo ${{ secrets.DOCKER_TOKEN }} | docker login -u ${{ secrets.DOCKER_LOGIN }} --password -stdin
-        -uses: actions/checkout@main
-        -name: Сборка образа
-        run: docker run -t $LOGIN/$NAME:${GITHUB_REF:11} -f Dockerfile
-        -name: Отправка образа на dockerhub
+      LOGIN: ${{ secrets.DOCKER_LOGIN }}
+      NAME: ${{ secrets.DOCKER_NAME }}
+    steps:
+      - name: Авторизация в DockerHub
+        run: echo ${{ secrets.DOCKER_TOKEN }} | docker login -u ${{ secrets.DOCKER_LOGIN }} --password-stdin
+      - uses: actions/checkout@main
+      - name: Сборка образа
+        run: docker build -t $LOGIN/$NAME:${GITHUB_REF:11} -f Dockerfile .
+      - name: Отправка на DockerHub
         run: docker push $LOGIN/$NAME:${GITHUB_REF:11}
-
-
-      
