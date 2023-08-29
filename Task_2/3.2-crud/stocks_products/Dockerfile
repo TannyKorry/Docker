@@ -17,4 +17,4 @@ RUN python manage.py migrate
 
  
 
-CMD ["python", "manage.py", "runserver", "--host", "0.0.0.0", "--port", "5550"]
+CMD ["python3", "manage.py", "runserver", "--host", "0.0.0.0", "--port", "5550"]
