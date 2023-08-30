@@ -8,13 +8,6 @@ COPY . /src
 ENV .env=netology
 WORKDIR /src
 
-EXPOSE 8880
+EXPOSE 8000
 
-# RUN python manage.py migrate
-
-
-#CMD ["gunicorn", "--bind", "0.0.0.0:5050", "stocks_products.wsgi"]
-
- 
-
-CMD ["python", "manage.py", "runserver", "--host", "0.0.0.0", "--port", "8880"]
+CMD ["python", "manage.py", "runserver", "--host", "0.0.0.0", "--port", "8000"]
