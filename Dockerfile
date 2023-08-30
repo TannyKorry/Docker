@@ -3,7 +3,7 @@ FROM python:3.9-alpine
 COPY ./Task_2/requirements.txt /src/requirements.txt
 RUN pip3 install --no-cache-dir --upgrade -r /src/requirements.txt
 
-COPY . /src
+COPY ./Task_2 /src
 
 ENV .env=netology
 WORKDIR /src
